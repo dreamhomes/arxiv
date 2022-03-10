@@ -1,4 +1,4 @@
-from crawler.data.paper import Paper, translate_paper
+from crawler.data.paper import translate_paper
 from crawler.data.topic import Topic
 from crawler.request_data import request_api
 from crawler.parse_data import parse_feed
@@ -37,6 +37,5 @@ def main(topic: str, date: str = None, to_translate: bool = False):
 
 
 if __name__ == '__main__':
-    date = "2022-03-08"
-    main(Topic.TS.value, date)
-    main(Topic.GRAPH.value, date)
+    main(Topic.TS.value)
+    main(Topic.GRAPH.value)
