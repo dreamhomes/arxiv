@@ -1,11 +1,13 @@
+from datetime import datetime
+
+import fire
+from dateutil.parser import parse
+
 from crawler.data.paper import translate_paper
 from crawler.data.topic import Topic
-from crawler.request_data import request_api
-from crawler.parse_data import parse_feed
 from crawler.format_md import format_markdown
-
-from datetime import datetime
-from dateutil.parser import parse
+from crawler.parse_data import parse_feed
+from crawler.request_data import request_api
 
 root_dir = "papers/"
 
@@ -37,5 +39,6 @@ def main(topic: str, date: str = None, to_translate: bool = False):
 
 
 if __name__ == '__main__':
-    main(Topic.TS.value)
-    main(Topic.GRAPH.value)
+    # main(Topic.TS.value)
+    # main(Topic.GRAPH.value)
+    fire.Fire(main)
