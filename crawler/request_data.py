@@ -22,5 +22,11 @@ api_url = "http://export.arxiv.org/api/query?" \
 def request_api(keywords: str, max_results: int) -> str:
     url = api_url.format(parse.quote(keywords), max_results)
     print(f"Search url: {url}")
-    data = request.urlopen(url).read()
+    data = None 
+    while data is None:
+        try:
+            data = request.urlopen(url).read()
+        except Exception:
+            print(f"Request arxiv api error, Retry...")
+            data = None
     return data

@@ -37,4 +37,4 @@ def translate(english_str: str) -> str:
         result = requests.get(apiURL, params=params).json().get("trans_result")
         print(f"Translate errors [{times}], Retry...")
         sleep(1)
-    return result[0].get("dst") if result is not None else english_str
+    return result[0].get("dst").replace('\n', '').replace('\r', '') if result is not None else english_str
