@@ -18,8 +18,8 @@ def format_markdown(topic: Topic, papers: list[Paper], output_dir: str, file_nam
     output_dir = Path(output_dir)
     output_dir.mkdir(exist_ok=True, parents=True)
     file_name = (output_dir / f"{file_name}.md").as_posix()
-    md_file = MdUtils(file_name=file_name, title=f"[{Topic.to_zh(topic)}] 每日论文速递", author="dreamhomes")
-    md_file.new_line("> 欢迎关注 @AISeer，聚焦「图机器学习」「时空序列」「异常检测」及其交叉应用领域，欢迎交流 ヾ(≧∇≦*)ゝ")
+    md_file = MdUtils(file_name=file_name, title=f"Arxiv 速递丨{Topic.to_zh(topic)}相关研究论文一览", author="dreamhomes")
+    md_file.new_line("> 欢迎关注 [@AISeer](https://www.zhihu.com/people/dreamhomes)，聚焦「图机器学习」「时空序列」「异常检测」及其交叉应用领域，欢迎交流 ヾ(≧∇≦*)ゝ")
     for idx, paper in enumerate(papers):
         print(f"{idx + 1:<3} {paper}")
         md_file.new_header(level=3, title=str(idx + 1), add_table_of_contents="n")

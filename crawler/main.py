@@ -31,6 +31,9 @@ def main(topic: str, date: str = None, to_translate: bool = False):
     xml = request_api(topic.value, max_results)
     # 2. Parse data.
     papers = parse_feed(xml, date)[:max_num_papers]
+
+    if len(papers) == 0:
+        return
     # 3. Translate abstract
     if to_translate:
         papers = list(map(translate_paper, papers))
@@ -38,7 +41,7 @@ def main(topic: str, date: str = None, to_translate: bool = False):
     format_markdown(topic, papers, output_dir, md_file_name)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # main(Topic.TS.value)
     # main(Topic.GRAPH.value)
     fire.Fire(main)

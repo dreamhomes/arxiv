@@ -36,5 +36,6 @@ def parse_paper(entry: dict) -> Paper:
     summary = entry.get("summary").replace('\n', '').replace('\r', '')
     authors = [author.get("name") for author in entry.get("authors")]
     comment = entry.get("arxiv_comment")
+    print("{}: {}".format(published.strftime("%Y-%m-%d"), title))
 
     return Paper(paper_id, link, title, published, authors, summary, comment)
