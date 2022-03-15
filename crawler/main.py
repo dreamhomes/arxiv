@@ -12,7 +12,7 @@ from crawler.request_data import request_api
 root_dir = "papers/"
 
 
-def main(topic: str, date: str = None, to_translate: bool = False):
+def main(topic: str, date: str = None, to_translate: bool = False, gap:int = 1):
     """
     Search Arxiv papers according to date and keywords.
     :param to_translate: translate abstract or not
@@ -30,7 +30,7 @@ def main(topic: str, date: str = None, to_translate: bool = False):
     # 1. Get data.
     xml = request_api(topic.value, max_results)
     # 2. Parse data.
-    papers = parse_feed(xml, date)[:max_num_papers]
+    papers = parse_feed(xml, date, gap)[:max_num_papers]
 
     if len(papers) == 0:
         return

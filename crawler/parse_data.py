@@ -17,12 +17,12 @@ from dateutil.parser import parse
 from crawler.data.paper import Paper
 
 
-def parse_feed(xml_str: str, date: datetime) -> list[Paper]:
+def parse_feed(xml_str: str, date: datetime, gap: int = 1) -> list[Paper]:
     entries = parser.parse(xml_str).get("entries")
     with Pool(cpu_count()) as pool:
         papers = pool.map(parse_paper, entries)
     utc_date = date.replace(tzinfo=pytz.timezone('UTC'))
-    lower_bound = (date - timedelta(days=1, hours=8)).replace(tzinfo=pytz.timezone('UTC'))
+    lower_bound = (date - timedelta(days=gap, hours=8)).replace(tzinfo=pytz.timezone('UTC'))
     filtered_papers = filter(lambda paper: lower_bound <= paper.published <= utc_date, papers)
 
     return list(filtered_papers)
