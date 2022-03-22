@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import fire
 from dateutil.parser import parse
@@ -33,6 +33,7 @@ def main(topic: str, date: str = None, to_translate: bool = False, gap:int = 1):
     papers = parse_feed(xml, date, gap)[:max_num_papers]
 
     if len(papers) == 0:
+        print(f"No papers between {date - timedelta(days=gap, hours=8)} - {date }")
         return
     # 3. Translate abstract
     if to_translate:
