@@ -42,7 +42,6 @@ def write_paper(md_file: MdUtils, paper: Paper):
         " "
     ) + md_file.write(
         paper.abstract_zh if paper.abstract_zh is not None else paper.abstract,
-        bold_italics_code="i",
     )
     md_file.new_line("论文链接", bold_italics_code="b") + md_file.write(
         " "
