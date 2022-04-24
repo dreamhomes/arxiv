@@ -6,16 +6,26 @@
 @File        : utils.py
 @Description : utilities
 """
-import random
 import hashlib
+import random
 from time import sleep
 
 import requests
+import configparser
 
-APP_ID = "20220308001116256"
-SECRET_KEY = "xFBa2W24XI6xXkrLcEmL"
-apiURL = "http://api.fanyi.baidu.com/api/trans/vip/translate"
-MAX_TIME = 5
+
+def get_translate_config(config_path: str):
+    parser = configparser.ConfigParser()
+    parser.read(config_path)
+    assert "TRANSLATE" in parser.sections(), "Error in config file."
+    return parser["TRANSLATE"]
+
+
+config = get_translate_config("config/config.ini")
+APP_ID = config["APP_ID"]
+SECRET_KEY = config["SECRET_KEY"]
+API_URL = config["API_URL"]
+MAX_TIME = config.getint("MAX_TIME")
 
 
 def translate(english_str: str) -> str:
@@ -34,7 +44,7 @@ def translate(english_str: str) -> str:
     }
     while result is None and times < MAX_TIME:
         times += 1
-        result = requests.get(apiURL, params=params).json().get("trans_result")
+        result = requests.get(API_URL, params=params).json().get("trans_result")
         print(f"Translate errors [{times}], Retry...")
         sleep(1)
     chinese_str = result[0].get("dst").replace('\n', '').replace('\r', '').replace(' ', '')
